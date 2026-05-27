@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChillVault — 重新定义保冷</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f5f5f7;
+            --text: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent: #0071e3;
+            --accent-hover: #0077ED;
+            --border: #d2d2d7;
+            --gradient-start: #e8f0fe;
+            --gradient-end: #c8ddf8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-inner {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-size: 21px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 980px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            letter-spacing: -0.01em;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 96px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--gradient-start) 0%, var(--bg) 60%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #0071e3, #5ac8fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 24px;
+            max-width: 500px;
+        }
+
+        .hero-price {
+            font-size: 21px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 500;
+            cursor: pointer;
+            letter-spacing: -0.01em;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
+            padding: 14px 28px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 500;
+            cursor: pointer;
+            letter-spacing: -0.01em;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 113, 227, 0.06);
+        }
+
+        .hero-visual {
+            margin-top: 48px;
+            width: 100%;
+            max-width: 640px;
+            aspect-ratio: 1 / 1;
+            background: radial-gradient(circle at 50% 40%, #e8f4fd 0%, #c5ddf5 50%, #9ec5e8 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 113, 227, 0.15);
+        }
+
+        .bottle-svg {
+            width: 45%;
+            height: auto;
+        }
+
+        /* Features Grid */
+        .section {
+            padding: 120px 22px;
+        }
+
+        .section-dark {
+            background: #000;
+            color: #f5f5f7;
+        }
+
+        .section-inner {
+            max-width: 980px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .section h2 {
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .section p.lead {
+            font-size: 21px;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            max-width: 600px;
+            margin: 0 auto 64px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            text-align: left;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 40px 32px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon.blue {
+            background: #e8f4fd;
+        }
+        .feature-icon.green {
+            background: #e6f9ed;
+        }
+        .feature-icon.purple {
+            background: #f0e8fd;
+        }
+        .feature-icon.orange {
+            background: #fdf0e8;
+        }
+
+        .feature-card h3 {
+            font-size: 21px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Specs Section */
+        .specs-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            margin-top: 48px;
+        }
+
+        .spec-item {
+            flex: 1;
+            min-width: 160px;
+            padding: 32px 20px;
+            text-align: center;
+            border-right: 1px solid #333;
+        }
+
+        .spec-item:last-child {
+            border-right: none;
+        }
+
+        .spec-value {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .spec-label {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #86868b;
+        }
+
+        /* Colors */
+        .colors-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .color-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            border: 3px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .color-circle:hover {
+            border-color: #0071e3;
+        }
+
+        .color-circle.glacier-white {
+            background: linear-gradient(135deg, #f0f0f5, #d8d8e0);
+        }
+        .color-circle.midnight-black {
+            background: linear-gradient(135deg, #2a2a2e, #0d0d0f);
+        }
+        .color-circle.ocean-blue {
+            background: linear-gradient(135deg, #3a7bd5, #1a4a8a);
+        }
+        .color-circle.forest-green {
+            background: linear-gradient(135deg, #3a8a5c, #1a5a30);
+        }
+        .color-circle.coral-pink {
+            background: linear-gradient(135deg, #f5a0a8, #e8707a);
+        }
+
+        .color-name {
+            font-size: 12px;
+            color: #f5f5f7;
+        }
+
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .testimonial {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: left;
+        }
+
+        .testimonial .stars {
+            color: #f5a623;
+            font-size: 16px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .testimonial .author {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .testimonial .author-role {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 120px 22px;
+            text-align: center;
+            background: var(--bg-secondary);
+        }
+
+        .cta-section h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 19px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 40px 22px 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .footer-note {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .specs-row {
+                flex-direction: column;
+            }
+
+            .spec-item {
+                border-right: none;
+                border-bottom: 1px solid #333;
+            }
+
+            .spec-item:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">ChillVault</a>
+        <ul class="nav-links">
+            <li><a href="#features">特点</a></li>
+            <li><a href="#specs">技术规格</a></li>
+            <li><a href="#colors">颜色</a></li>
+            <li><a href="#reviews">评价</a></li>
+        </ul>
+        <button class="nav-cta">购买</button>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge">全新登场</div>
+    <h1>ChillVault <span class="highlight">Pro</span></h1>
+    <p class="hero-subtitle">36 小时极致保冷。每一口，都像刚从冰川取出。</p>
+    <p class="hero-price">¥ 349 起</p>
+    <div class="hero-buttons">
+        <button class="btn-primary">立即购买</button>
+        <button class="btn-secondary">了解更多 &#x203A;</button>
+    </div>
+    <div class="hero-visual">
+        <svg class="bottle-svg" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#d0d8e8"/>
+                    <stop offset="30%" stop-color="#f5f7fb"/>
+                    <stop offset="70%" stop-color="#f5f7fb"/>
+                    <stop offset="100%" stop-color="#c0c8d8"/>
+                </linearGradient>
+                <linearGradient id="capGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#1a1a2e"/>
+                    <stop offset="40%" stop-color="#2d2d44"/>
+                    <stop offset="60%" stop-color="#2d2d44"/>
+                    <stop offset="100%" stop-color="#1a1a2e"/>
+                </linearGradient>
+                <linearGradient id="iceGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#88ccf8"/>
+                    <stop offset="100%" stop-color="#d0e8f8"/>
+                </linearGradient>
+            </defs>
+            <!-- Cap -->
+            <rect x="75" y="10" width="50" height="40" rx="12" fill="url(#capGrad)"/>
+            <rect x="78" y="30" width="44" height="18" rx="4" fill="#222236"/>
+            <!-- Neck -->
+            <rect x="82" y="50" width="36" height="15" rx="4" fill="#e8ecf4"/>
+            <rect x="82" y="50" width="36" height="3" fill="#1a1a2e" opacity="0.3"/>
+            <!-- Body -->
+            <rect x="72" y="65" width="56" height="260" rx="28" fill="url(#bodyGrad)"/>
+            <!-- Ice particles -->
+            <circle cx="88" cy="130" r="6" fill="url(#iceGrad)" opacity="0.8"/>
+            <circle cx="108" cy="155" r="4" fill="url(#iceGrad)" opacity="0.7"/>
+            <circle cx="95" cy="180" r="5" fill="url(#iceGrad)" opacity="0.75"/>
+            <circle cx="110" cy="210" r="3" fill="url(#iceGrad)" opacity="0.6"/>
+            <circle cx="92" cy="240" r="4" fill="url(#iceGrad)" opacity="0.7"/>
+            <!-- Frost line -->
+            <rect x="72" y="65" width="56" height="260" rx="28" fill="white" opacity="0.08"/>
+            <!-- Highlight -->
+            <rect x="78" y="75" width="8" height="200" rx="4" fill="white" opacity="0.25"/>
+            <!-- Base ring -->
+            <rect x="74" y="310" width="52" height="8" rx="4" fill="#d8dce4"/>
+        </svg>
+    </div>
+</section>
+
+<section class="section" id="features">
+    <div class="section-inner">
+        <div class="section-label">核心技术</div>
+        <h2>不仅仅是一个杯子。</h2>
+        <p class="lead">ChillVault Pro 采用航天级真空隔热技术，重新定义了「保冷」的极限。</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon blue">&#x2744;</div>
+                <h3>36 小时极致保冷</h3>
+                <p>双层真空隔热壁，配合镀铜内胆。放入冰块，36 小时后依然清脆可见。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon green">&#x2728;</div>
+                <h3>医用级 316L 不锈钢</h3>
+                <p>更耐腐蚀、无金属味。无论是咖啡、果汁还是茶，每一口都纯粹如初。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon purple">&#x1F4A7;</div>
+                <h3>零凝露外壁</h3>
+                <p>即使装满冰水，外壁始终保持干燥。告别湿漉漉的桌面和杯套。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon orange">&#x1F33F;</div>
+                <h3>环保设计</h3>
+                <p>100% 可回收材料制成。一个 ChillVault，替代 1,460 个一次性塑料瓶。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-dark" id="specs">
+    <div class="section-inner">
+        <div class="section-label">技术规格</div>
+        <h2>数据会说话。</h2>
+        <p class="lead" style="color:#86868b;">每一个数字背后，都是对工艺的极致追求。</p>
+        <div class="specs-row">
+            <div class="spec-item">
+                <div class="spec-value">36<span style="font-size:20px;">h</span></div>
+                <div class="spec-label">保冷时长</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">12<span style="font-size:20px;">h</span></div>
+                <div class="spec-label">保温时长</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">600<span style="font-size:20px;">ml</span></div>
+                <div class="spec-label">容量</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">285<span style="font-size:20px;">g</span></div>
+                <div class="spec-label">重量</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">1.2<span style="font-size:20px;">mm</span></div>
+                <div class="spec-label">真空壁厚</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-dark" id="colors">
+    <div class="section-inner">
+        <div class="section-label">选择你的风格</div>
+        <h2>五种配色。</h2>
+        <p class="lead" style="color:#86868b;">从冰川到森林，总有一种表达你。</p>
+        <div class="colors-row">
+            <div class="color-option">
+                <div class="color-circle glacier-white"></div>
+                <div class="color-name">冰川白</div>
+            </div>
+            <div class="color-option">
+                <div class="color-circle midnight-black"></div>
+                <div class="color-name">午夜黑</div>
+            </div>
+            <div class="color-option">
+                <div class="color-circle ocean-blue"></div>
+                <div class="color-name">深海蓝</div>
+            </div>
+            <div class="color-option">
+                <div class="color-circle forest-green"></div>
+                <div class="color-name">森林绿</div>
+            </div>
+            <div class="color-option">
+                <div class="color-circle coral-pink"></div>
+                <div class="color-name">珊瑚粉</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="reviews">
+    <div class="section-inner">
+        <div class="section-label">用户心声</div>
+        <h2>他们已经在用了。</h2>
+        <p class="lead">超过 10,000 条五星好评。</p>
+        <div class="testimonial-grid">
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p>"早上 8 点放进去的冰块，晚上加班到 10 点打开还在。这杯子简直离谱。"</p>
+                <div class="author">张明</div>
+                <div class="author-role">户外摄影师</div>
+            </div>
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p>"外观极简高级，放在办公桌上经常被同事问链接。而且真的不漏水，放包里很安心。"</p>
+                <div class="author">林小雨</div>
+                <div class="author-role">产品设计师</div>
+            </div>
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p>"夏天去健身房带着它，练完两小时，水还是冰的，太爽了。"</p>
+                <div class="author">Alex Chen</div>
+                <div class="author-role">健身教练</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <h2>准备好迎接极致冰爽了吗？</h2>
+    <p>ChillVault Pro，从 ¥349 起。免费送货，30 天无忧退货。</p>
+    <button class="btn-primary" style="font-size:19px;padding:16px 40px;">立即购买</button>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <p class="footer-note">
+            * 36 小时保冷数据基于实验室标准条件测试（室温 25°C，装入 50% 冰块 + 50% 0°C 水）。实际效果可能因使用环境而异。<br>
+            * 所有产品图片仅为渲染示意图，实际产品可能略有差异。
+        </p>
+        <div class="footer-bottom">
+            <span>Copyright &copy; 2026 ChillVault Inc. 保留所有权利。</span>
+            <ul class="footer-links">
+                <li><a href="#">隐私政策</a></li>
+                <li><a href="#">使用条款</a></li>
+                <li><a href="#">销售政策</a></li>
+                <li><a href="#">法律信息</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
